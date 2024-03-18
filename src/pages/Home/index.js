@@ -127,26 +127,19 @@ const Page = () => {
     <footer className="row">
       <div className="col presta">
         <h3>Notre derniére prestation</h3>
-        
-        
-        {last ? (
-    <EventCard
-      data-testid="last-event-card"
-      imageSrc={last?.cover}
-      imageAlt={last?.description}
-      title={last?.title}
-      date={new Date(last?.date)}
-      small
-      label={last?.type}
-    />
-  ) : (
-    <p>Aucune dernière prestation disponible</p>
-  )}
-        
-          
-        
-
-
+        {last ? (   // ajout de last
+          <EventCard
+            data-testid="last-event-card" // ajout de data-testid
+            imageSrc={last?.cover}
+            imageAlt={last?.description}
+            title={last?.title}
+            date={new Date(last?.date)}
+            small
+            label={last?.type}
+          />
+          ) : (
+            <p>Aucune dernière prestation disponible</p> // message pour verifier si last a de la valeur
+        )}
       </div>
       <div className="col contact">
         <h3>Contactez-nous</h3>
