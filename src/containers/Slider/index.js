@@ -10,21 +10,30 @@ const Slider = () => {
   const byDateDesc = data?.focus.sort((evtA, evtB) =>
     new Date(evtA.date) < new Date(evtB.date) ? -1 : 1
   );
+  
+
   const nextCard = () => {
-    setTimeout(
-      () => setIndex(index < byDateDesc.length ? index + 1 : 0),
-      5000
+    setIndex((prevIndex) => // la fonction setIndex pour mettre à jour l'index. Avant il y avait setTimeout
+      prevIndex < byDateDesc.length - 1 ? prevIndex + 1 : 0
     );
+    // L'index est incrémenté de 1 s'il est inférieur à la longueur du tableau trié,
+    // sinon il est réinitialisé à 0.
   };
-  useEffect(() => {
-    nextCard();
-  });
+
+  useEffect(
+    () => {
+      const autoScrollTimer = setInterval(nextCard, 5000); // exécute la fonction nextCard toutes les 5 secondes
+
+      return () => clearInterval(autoScrollTimer); // arrête l'exécution de la fonction nextCard
+    },
+    [index, byDateDesc] // indique que l'effet doit être réexécuté lorsque l'une de ces valeurs change
+  );
+
   return (
     <div className="SlideCardList">
       {byDateDesc?.map((event, idx) => (
-        <>
+        <div key={event.title}>
           <div
-            key={event.title}
             className={`SlideCard SlideCard--${
               index === idx ? "display" : "hide"
             }`}
@@ -42,15 +51,15 @@ const Slider = () => {
             <div className="SlideCard__pagination">
               {byDateDesc.map((_, radioIdx) => (
                 <input
-                  key={`${event.id}`}
+                key={`${event.id}`}
                   type="radio"
                   name="radio-button"
-                  checked={idx === radioIdx}
+                  checked={index === radioIdx}
                 />
               ))}
             </div>
           </div>
-        </>
+        </div>
       ))}
     </div>
   );
