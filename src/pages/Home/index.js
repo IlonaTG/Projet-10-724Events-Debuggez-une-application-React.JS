@@ -62,14 +62,14 @@ const Page = () => {
           </ServiceCard>
         </div>
       </section>
-      <section id="nos-realisations" className="EventsContainer">
+      <section id="nos-realisations" className="EventsContainer" data-testid="listOfEvents">
         <h2 className="Title">Nos réalisations</h2>
         <EventList />
       </section>
       <section id="notre-equipe" className="PeoplesContainer">
         <h2 className="Title">Notre équipe</h2>
         <p>Une équipe d’experts dédiés à l’ogranisation de vos événements</p>
-        <div className="ListContainer">
+        <div className="ListContainer" data-testid="listOfPeople">
           <PeopleCard
             imageSrc="/images/stephanie-liverani-Zz5LQe-VSMY-unsplash.png"
             name="Samira"
@@ -124,12 +124,12 @@ const Page = () => {
         </Modal>
       </div>
     </main>
-    <footer className="row">
+    <footer className="row" data-testid="footer">
       <div className="col presta">
         <h3>Notre derniére prestation</h3>
         {last ? (   // ajout de last
           <EventCard
-            data-testid="last-event-card" // ajout de data-testid
+            data-testid="lastEventCard" // ajout de data-testid
             imageSrc={last?.cover}
             imageAlt={last?.description}
             title={last?.title}
